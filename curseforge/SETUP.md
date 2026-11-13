@@ -16,7 +16,7 @@ La création du projet est **manuelle** (une seule fois) : CurseForge fait relir
 4. Premier fichier : envoie `releases/seasick-latest.jar` (ou celui de la Release GitHub v1.0.0) avec :
    - Version de jeu **1.21.1**, chargeur **Forge**, environnement **Client**, **Java 21**.
    - Type : **Release**. Notes : la section 1.0.0 de `CHANGELOG.md`.
-5. Ajoute les captures du dossier [`screenshots/`](screenshots/) dans l'onglet **Images** (galerie).
+5. Ajoute les captures du dossier [`screenshots/`](screenshots/) dans l'onglet **Images** (galerie) : elles viennent du test en jeu de la CI (branche `ci-logs`).
 6. Envoie en modération. L'**ID du projet** (un nombre) s'affiche dans l'encadré « About Project » de la page du projet.
 
 ## 2. Brancher l'envoi automatique (une fois)
