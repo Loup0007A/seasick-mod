@@ -220,6 +220,9 @@ public final class ClientSelfTest {
             Journal j = Journal.get();
             check(j.timesSick == 1 && j.overTheRail == 1, "compté dans le carnet (" + j.timesSick + "/" + j.overTheRail + ")");
             check(Sickness.dose <= 0.4, "soulagé (" + String.format("%.2f", Sickness.dose) + ")");
+        });
+        // les facteurs sont réévalués au tick suivant la fin du malaise
+        step("soulagement-facteur", 3, () -> {
             check(has(Factor.RELIEF), "facteur de soulagement");
             Sickness.onEat("honey_bottle");
         });

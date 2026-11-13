@@ -84,8 +84,8 @@ public final class Vomit {
         } else if (phase == Phase.ACT) {
             t++;
             if (SeaConfig.get(SeaConfig.AFFECT_CONTROLS, true)) {
-                // on se penche : le regard descend
-                float target = clean ? 62f : 70f;
+                // on se penche : le regard descend (par-dessus bord, juste assez pour voir l'eau au-delà du plat-bord)
+                float target = clean ? 42f : 68f;
                 float x = p.getXRot();
                 float nx = x + Mth.clamp(target - x, -9f, 9f);
                 p.xRotO = p.getXRot();
@@ -128,23 +128,29 @@ public final class Vomit {
         Level level = p.level();
         Vec3 eye = p.getEyePosition();
         Vec3 look = p.getViewVector(1f);
-        Vec3 mouth = eye.add(look.scale(0.35)).add(0, -0.18, 0);
+        Vec3 flat = new Vec3(look.x, 0, look.z);
+        flat = flat.lengthSqr() < 1e-4 ? new Vec3(0, 0, 1) : flat.normalize();
+        // la bouche est sous les yeux, un peu en avant : les particules ne masquent pas toute la vue
+        Vec3 mouth = eye.add(flat.scale(0.55)).add(0, -0.42, 0);
         int color = Stomach.mealColor();
         String meal = Stomach.meal();
-        for (int i = 0; i < 4; i++) {
-            double vx = look.x * 0.22 + (RNG.nextDouble() - 0.5) * 0.06;
-            double vy = look.y * 0.22 - 0.06 + (RNG.nextDouble() - 0.5) * 0.04;
-            double vz = look.z * 0.22 + (RNG.nextDouble() - 0.5) * 0.06;
-            level.addParticle(Compat.dust(jitter(color), 1.1f + RNG.nextFloat() * 0.6f), mouth.x, mouth.y, mouth.z, vx, vy, vz);
+        for (int i = 0; i < 3; i++) {
+            double vx = flat.x * 0.16 + (RNG.nextDouble() - 0.5) * 0.05;
+            double vy = -0.08 + (RNG.nextDouble() - 0.5) * 0.04;
+            double vz = flat.z * 0.16 + (RNG.nextDouble() - 0.5) * 0.05;
+            level.addParticle(Compat.dust(jitter(color), 0.8f + RNG.nextFloat() * 0.5f), mouth.x, mouth.y, mouth.z, vx, vy, vz);
         }
+        // ce qui tombe vraiment : gouttes et morceaux, soumis à la gravité
+        level.addParticle(ParticleTypes.FALLING_HONEY, mouth.x + (RNG.nextDouble() - 0.5) * 0.15, mouth.y,
+            mouth.z + (RNG.nextDouble() - 0.5) * 0.15, flat.x * 0.12, -0.05, flat.z * 0.12);
         if (t % 2 == 0) {
             level.addParticle(meal.isEmpty() || meal.contains("kelp") ? ParticleTypes.ITEM_SLIME : ParticleTypes.FALLING_HONEY,
-                mouth.x, mouth.y, mouth.z, look.x * 0.15, -0.05, look.z * 0.15);
+                mouth.x, mouth.y, mouth.z, flat.x * 0.15, -0.05, flat.z * 0.15);
             var crumbs = meal.isEmpty() ? null : Compat.itemParticle(Stomach.mealId());
-            if (crumbs != null) level.addParticle(crumbs, mouth.x, mouth.y, mouth.z, look.x * 0.18, -0.02, look.z * 0.18);
+            if (crumbs != null) level.addParticle(crumbs, mouth.x, mouth.y, mouth.z, flat.x * 0.18, -0.02, flat.z * 0.18);
         }
         if (meal.equals("glow_berries") && t % 3 == 0) {
-            level.addParticle(ParticleTypes.GLOW, mouth.x, mouth.y, mouth.z, look.x * 0.1, -0.02, look.z * 0.1);
+            level.addParticle(ParticleTypes.GLOW, mouth.x, mouth.y, mouth.z, flat.x * 0.1, -0.02, flat.z * 0.1);
         }
         if (t >= 12 && t % 3 == 0 && landing != null) {
             if (overWater && clean) {
