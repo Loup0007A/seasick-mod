@@ -59,12 +59,13 @@ public final class Hud {
         double fx = SeaConfig.screen();
 
         if (fx > 0 && q > 25) {
-            float pallor = (float) (Mth.clamp((q - 25) / 75, 0, 1) * 0.22 * fx);
+            float pallor = (float) (Mth.clamp((q - 25) / 75, 0, 1) * 0.26 * fx);
             Gfx.fill(g, 0, 0, w, h, argb(pallor, 0xA6D8A0));
         }
-        if (fx > 0 && q > 45) {
-            double pulse = 0.12 * Math.sin(Swell.cycle(pt));
-            float a = (float) Mth.clamp((Mth.clamp((q - 45) / 55, 0, 1) * 0.85 + pulse) * fx, 0, 1);
+        if (fx > 0 && q > 40) {
+            // sueurs froides : les bords s'assombrissent et respirent au rythme de la houle
+            double pulse = 0.15 * Math.sin(Swell.cycle(pt));
+            float a = (float) Mth.clamp((Mth.clamp((q - 40) / 45, 0, 1) + pulse) * fx, 0, 1);
             Gfx.texture(g, VIGNETTE, 0, 0, w, h, 0, 0, 256, 256, 256, 256, argb(a, 0x1C2A1C));
         }
 

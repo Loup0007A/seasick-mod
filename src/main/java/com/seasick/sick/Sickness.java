@@ -196,7 +196,7 @@ public final class Sickness {
         } else if (dark) {
             add(Factor.DARK);
         }
-        if (!horizonVisible && !eyesClosed && artificialHorizonShown) add(Factor.ARTIFICIAL_HORIZON);
+        if (!horizonVisible && !eyesClosed && artificialHorizonShown && screen == null) add(Factor.ARTIFICIAL_HORIZON);
         if (!mc.options.getCameraType().isFirstPerson()) add(Factor.THIRD_PERSON);
 
         if (ctx == Context.BOAT || ctx == Context.BOAT_DRY || ctx == Context.CAMEL) {
@@ -278,8 +278,13 @@ public final class Sickness {
     // ───────────────────────── repas ─────────────────────────
 
     public static void onEat(String item) {
+        onEat(item, "minecraft:" + item);
+    }
+
+    /** @param item nom de l'objet (« bread ») @param id identifiant complet (« minecraft:bread ») */
+    public static void onEat(String item, String id) {
         double before = dose;
-        dose = Mth.clamp(dose + Stomach.eat(item), 0, 1.3);
+        dose = Mth.clamp(dose + Stomach.eat(item, id), 0, 1.3);
         if (Stomach.isRich(item) && before >= 0.6 && RNG.nextFloat() < 0.35f && !Vomit.busy()) {
             Messages.say(Component.translatable("seasick.food.wont_stay"));
             Vomit.start(true);

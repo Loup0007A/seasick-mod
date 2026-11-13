@@ -32,11 +32,13 @@ public final class Stomach {
     /** Couleur (0xRRGGBB) et identifiant du dernier repas, pour ce qui ressortira. */
     private static int mealColor = BILE;
     private static String meal = "";
+    private static String mealId = "";
 
     public static void reset() {
         TIMERS.clear();
         mealColor = BILE;
         meal = "";
+        mealId = "";
     }
 
     public static void tick() {
@@ -56,17 +58,23 @@ public final class Stomach {
         return meal;
     }
 
+    /** Identifiant complet du dernier repas (pour ses miettes). */
+    public static String mealId() {
+        return mealId;
+    }
+
     /** L'estomac est vidé. */
     public static void emptied() {
         mealColor = BILE;
         meal = "";
+        mealId = "";
         TIMERS.remove(Factor.HEAVY_MEAL);
         TIMERS.remove(Factor.SPOILED);
         TIMERS.remove(Factor.MILK);
     }
 
     /** Effet du repas : variation immédiate de la dose (peut être négative), puis un facteur temporaire. */
-    public static double eat(String item) {
+    public static double eat(String item, String id) {
         double dose = 0;
         if (item.equals("honey_bottle")) {
             TIMERS.put(Factor.HONEY, 180 * 20);
@@ -89,6 +97,7 @@ public final class Stomach {
         }
         if (!item.equals("milk_bucket") && !item.equals("potion")) {
             meal = item;
+            mealId = id;
             mealColor = color(item);
         }
         return dose;

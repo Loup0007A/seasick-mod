@@ -58,6 +58,11 @@ public final class Compat {
         return BuiltInRegistries.ITEM.getKey(stack.getItem()).getPath();
     }
 
+    /** Identifiant complet (« minecraft:bread », « farmersdelight:tomato_sauce »...). */
+    public static String itemId(ItemStack stack) {
+        return BuiltInRegistries.ITEM.getKey(stack.getItem()).toString();
+    }
+
     public static String keyPath(ResourceKey<?> key) {
         return key.location().getPath();
     }
@@ -79,10 +84,12 @@ public final class Compat {
         return new DustParticleOptions(new Vector3f(((rgb >> 16) & 255) / 255f, ((rgb >> 8) & 255) / 255f, (rgb & 255) / 255f), scale);
     }
 
-    /** Miettes de l'objet (comme quand on mange), qui retombent. */
-    public static ParticleOptions itemParticle(String itemPath) {
-        return new ItemParticleOption(ParticleTypes.ITEM,
-            new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.withDefaultNamespace(itemPath))));
+    /** Miettes de l'objet (comme quand on mange), qui retombent ; null si l'objet n'existe pas. */
+    public static ParticleOptions itemParticle(String itemId) {
+        ResourceLocation id = ResourceLocation.tryParse(itemId);
+        if (id == null || !BuiltInRegistries.ITEM.containsKey(id)) return null;
+        ItemStack stack = new ItemStack(BuiltInRegistries.ITEM.get(id));
+        return stack.isEmpty() ? null : new ItemParticleOption(ParticleTypes.ITEM, stack);
     }
 
     public static void toast(Component title, Component message) {

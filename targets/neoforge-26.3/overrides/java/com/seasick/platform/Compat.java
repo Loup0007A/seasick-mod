@@ -43,6 +43,10 @@ public final class Compat {
         return BuiltInRegistries.ITEM.getKey(stack.getItem()).getPath();
     }
 
+    public static String itemId(ItemStack stack) {
+        return BuiltInRegistries.ITEM.getKey(stack.getItem()).toString();
+    }
+
     public static String keyPath(ResourceKey<?> key) {
         return key.identifier().getPath();
     }
@@ -63,8 +67,11 @@ public final class Compat {
         return new DustParticleOptions(rgb, scale);
     }
 
-    public static ParticleOptions itemParticle(String itemPath) {
-        return new ItemParticleOption(ParticleTypes.ITEM, BuiltInRegistries.ITEM.getValue(Identifier.withDefaultNamespace(itemPath)));
+    public static ParticleOptions itemParticle(String itemId) {
+        Identifier id = Identifier.tryParse(itemId);
+        if (id == null || !BuiltInRegistries.ITEM.containsKey(id)) return null;
+        net.minecraft.world.item.Item item = BuiltInRegistries.ITEM.getValue(id);
+        return item == net.minecraft.world.item.Items.AIR ? null : new ItemParticleOption(ParticleTypes.ITEM, item);
     }
 
     public static void toast(Component title, Component message) {

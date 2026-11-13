@@ -13,6 +13,7 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.util.Mth;
 
 import java.util.ArrayList;
@@ -111,42 +112,42 @@ public class LogbookScreen extends Screen {
         Gfx.text(g, font, Component.literal(s), x, y, color, false);
     }
 
+    /** Texte replié sur plusieurs lignes si besoin ; renvoie la position de la ligne suivante. */
+    private int wrap(GuiGraphics g, Component c, int x, int y, int color, int maxWidth) {
+        for (FormattedCharSequence l : font.split(c, maxWidth)) {
+            Gfx.text(g, font, l, x, y, color, false);
+            y += 10;
+        }
+        return y;
+    }
+
     private int sea(GuiGraphics g, int x, int y, int w) {
         y = header(g, "seasick.logbook.sea", x, y);
         Context ctx = SeaState.context;
         if (ctx.onWater || ctx == Context.CAMEL || ctx == Context.BOAT_DRY) {
             if (ctx == Context.CAMEL) {
-                line(g, Component.translatable("seasick.logbook.camel"), x, y, TEXT, w);
-                return y + 10;
+                return wrap(g, Component.translatable("seasick.logbook.camel"), x, y, TEXT, w);
             }
             if (ctx == Context.BOAT_DRY) {
-                line(g, Component.translatable("seasick.logbook.dry"), x, y, TEXT, w);
-                return y + 10;
+                return wrap(g, Component.translatable("seasick.logbook.dry"), x, y, TEXT, w);
             }
             int d = SeaState.douglas(SeaState.hs);
-            line(g, Component.translatable("seasick.douglas." + d).append(String.format(" (%d) · %.1f m", d, SeaState.hs)), x, y, Hud.seaColor(d), w);
-            y += 10;
-            line(g, Component.translatable("seasick.logbook.period", String.format("%.1f", SeaState.tp),
+            y = wrap(g, Component.translatable("seasick.douglas." + d).append(String.format(" (%d) · %.1f m", d, SeaState.hs)), x, y, Hud.seaColor(d), w);
+            y = wrap(g, Component.translatable("seasick.logbook.period", String.format("%.1f", SeaState.tp),
                 Component.translatable("seasick.heading." + SeaState.heading())), x, y, TEXT, w);
-            y += 10;
             int b = SeaState.beaufort(SeaState.windSpeed);
-            line(g, Component.translatable("seasick.logbook.wind", b, Component.translatable("seasick.beaufort." + b),
+            y = wrap(g, Component.translatable("seasick.logbook.wind", b, Component.translatable("seasick.beaufort." + b),
                 Component.translatable("seasick.compass." + SeaState.windFrom())), x, y, TEXT, w);
-            y += 10;
-            line(g, Component.translatable("seasick.logbook.water", SeaState.fetch >= 192 ? "192+" : String.valueOf(SeaState.fetch), SeaState.depth),
+            y = wrap(g, Component.translatable("seasick.logbook.water", SeaState.fetch >= 192 ? "192+" : String.valueOf(SeaState.fetch), SeaState.depth),
                 x, y, DIM, w);
-            y += 10;
             if (SeaState.covered) {
-                line(g, Component.translatable("seasick.logbook.covered"), x, y, DIM, w);
-                y += 10;
+                y = wrap(g, Component.translatable("seasick.logbook.covered"), x, y, DIM, w);
             }
             if (SeaState.preset != SeaState.Preset.AUTO) {
-                line(g, Component.translatable("seasick.logbook.preset", SeaState.preset.name().toLowerCase()), x, y, DIM, w);
-                y += 10;
+                y = wrap(g, Component.translatable("seasick.logbook.preset", SeaState.preset.name().toLowerCase()), x, y, DIM, w);
             }
         } else {
-            line(g, Component.translatable("seasick.logbook.ashore"), x, y, TEXT, w);
-            y += 10;
+            y = wrap(g, Component.translatable("seasick.logbook.ashore"), x, y, TEXT, w);
         }
         return y;
     }
@@ -158,8 +159,7 @@ public class LogbookScreen extends Screen {
         Gfx.fill(g, x, y, x + bw, y + 6, 0xFF2A2A2A);
         Gfx.fill(g, x, y, x + (int) (Mth.clamp(q / 100, 0, 1) * bw), y + 6, Hud.gaugeColor(q));
         y += 9;
-        line(g, Component.translatable("seasick.stage." + Sickness.stage).append(String.format(" · %d%%", (int) Math.round(q))), x, y, Hud.gaugeColor(q), w);
-        y += 10;
+        y = wrap(g, Component.translatable("seasick.stage." + Sickness.stage).append(String.format(" · %d%%", (int) Math.round(q))), x, y, Hud.gaugeColor(q), w);
         double eq = Sickness.equilibrium();
         int secs = Sickness.secondsUntilSick();
         Component forecast;
@@ -182,14 +182,12 @@ public class LogbookScreen extends Screen {
             if (eqq >= 85) st = 4;
             forecast = Component.translatable("seasick.forecast.settle", Component.translatable("seasick.stage." + st));
         }
-        line(g, forecast, x, y, color, w);
-        y += 10;
+        y = wrap(g, forecast, x, y, color, w);
         if (LandSway.active()) {
-            line(g, Component.translatable("seasick.logbook.land", LandSway.secondsLeft()), x, y, DIM, w);
-            y += 10;
+            y = wrap(g, Component.translatable("seasick.logbook.land", LandSway.secondsLeft()), x, y, DIM, w);
         }
         if (Sickness.eyesClosed) {
-            line(g, Component.translatable("seasick.logbook.eyes"), x, y, DIM, w);
+            wrap(g, Component.translatable("seasick.logbook.eyes"), x, y, DIM, w);
         }
     }
 
@@ -197,18 +195,16 @@ public class LogbookScreen extends Screen {
         y = header(g, "seasick.logbook.why", x, y);
         List<Factor.Active> list = new ArrayList<>(Sickness.FACTORS);
         if (list.isEmpty()) {
-            line(g, Component.translatable("seasick.logbook.nothing"), x, y, DIM, w);
-            return y + 10;
+            return wrap(g, Component.translatable("seasick.logbook.nothing"), x, y, DIM, w);
         }
         int shown = 0;
         for (Factor.Active a : list) {
-            if (shown >= 8) break;
+            if (shown >= 7) break;
             int pct = (int) Math.round((a.mult() - 1) * 100);
             if (pct == 0) continue;
             MutableComponent c = Component.literal((pct > 0 ? "+" : "") + pct + "% ").append(a.factor().label());
             if (a.ticksLeft() > 0) c.append(String.format(" (%ds)", a.ticksLeft() / 20));
-            line(g, c, x, y, pct > 0 ? BAD : GOOD, w);
-            y += 10;
+            y = wrap(g, c, x, y, pct > 0 ? BAD : GOOD, w);
             shown++;
         }
         return y;
@@ -220,14 +216,11 @@ public class LogbookScreen extends Screen {
         Gfx.fill(g, x, y, x + bw, y + 4, 0xFF2A2A2A);
         Gfx.fill(g, x, y, x + (int) (j.seaLegs * bw), y + 4, 0xFF5AB4E8);
         y += 7;
-        line(g, Component.translatable("seasick.logbook.legs", (int) Math.round(j.seaLegs * 100)), x, y, TEXT, w);
-        y += 10;
+        y = wrap(g, Component.translatable("seasick.logbook.legs", (int) Math.round(j.seaLegs * 100)), x, y, TEXT, w);
         long mins = j.ticksAtSea / 20 / 60;
-        line(g, Component.translatable("seasick.logbook.time", mins / 60, String.format("%02d", mins % 60), (int) j.distance, j.voyages), x, y, TEXT, w);
-        y += 10;
-        line(g, Component.translatable("seasick.logbook.sick", j.timesSick, j.overTheRail, j.dryHeaves), x, y, TEXT, w);
-        y += 10;
+        y = wrap(g, Component.translatable("seasick.logbook.time", mins / 60, String.format("%02d", mins % 60), (int) j.distance, j.voyages), x, y, TEXT, w);
+        y = wrap(g, Component.translatable("seasick.logbook.sick", j.timesSick, j.overTheRail, j.dryHeaves), x, y, TEXT, w);
         long calm = j.longestCalmVoyage / 20;
-        line(g, Component.translatable("seasick.logbook.calm", calm / 60, String.format("%02d", calm % 60)), x, y, TEXT, w);
+        wrap(g, Component.translatable("seasick.logbook.calm", calm / 60, String.format("%02d", calm % 60)), x, y, TEXT, w);
     }
 }

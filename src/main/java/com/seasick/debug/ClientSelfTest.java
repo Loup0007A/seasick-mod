@@ -125,15 +125,15 @@ public final class ClientSelfTest {
             check(Swell.rollAmp > 3, "le bateau roule (" + String.format("%.1f", Swell.rollAmp) + "°)");
             check(SeaState.heading() == 2, "houle de travers (" + SeaState.heading() + ")");
         });
-        stepWhen("agitée-capture", () -> Math.abs(View.roll) > Swell.rollAmp * 0.55, 1, () -> shot("02_moderate_roll"));
+        stepWhen("agitée-capture", () -> Math.abs(View.roll) > Swell.rollAmp * 0.85, 1, () -> shot("02_moderate_roll"));
         step("tempête", 1, () -> sea(SeaState.Preset.STORM));
         step("tempête-mesure", 500, () -> {
             aim(60f, -100f, 2f);
             check(SeaState.hs > 5, "tempête (Hs " + String.format("%.2f", SeaState.hs) + ")");
-            check(Swell.rollAmp > rollModerate, "la tempête roule plus fort (" + String.format("%.1f > %.1f", Swell.rollAmp, rollModerate) + ")");
+            check(Swell.rollAmp > rollModerate, "la tempête roule plus fort (" + String.format("%.1f contre %.1f", Swell.rollAmp, rollModerate) + ")");
             check(Swell.intensity2 > 0.4, "dose forte en tempête (I² " + String.format("%.3f", Swell.intensity2) + ")");
         });
-        stepWhen("tempête-capture", () -> Math.abs(View.roll) > Swell.rollAmp * 0.6, 1, () -> shot("03_storm"));
+        stepWhen("tempête-capture", () -> Math.abs(View.roll) > Swell.rollAmp * 0.85, 1, () -> shot("03_storm"));
 
         // facteurs : horizon, regard baissé, barre
         step("horizon", 1, () -> aim(60f, 0f, 0f));
@@ -155,7 +155,7 @@ public final class ClientSelfTest {
         });
         step("dose-horizon", 200, () -> {
             doseHorizon = Sickness.dose;
-            check(doseHorizon < doseDown * 0.6, "l'horizon soulage (" + String.format("%.3f < %.3f", doseHorizon, doseDown) + ")");
+            check(doseHorizon < doseDown * 0.6, "l'horizon soulage (" + String.format("%.3f contre %.3f", doseHorizon, doseDown) + ")");
             check(Sickness.equilibrium() > 0, "équilibre calculé (" + String.format("%.2f", Sickness.equilibrium()) + ")");
         });
 
@@ -208,7 +208,8 @@ public final class ClientSelfTest {
         // malade, penché par-dessus bord
         step("malade", 1, () -> {
             aim(60f, 90f, 35f);
-            Sickness.dose = 1.0;
+            // au-dessus du seuil : la récupération du tick ne doit pas la faire repasser dessous
+            Sickness.dose = 1.05;
         });
         stepWhen("avertissement", () -> Vomit.phase == Vomit.Phase.WARNING, 1, () -> check(true, "avertissement avant d'être malade"));
         stepWhen("acte", () -> Vomit.acting() && Vomit.t >= 12, 1, () -> {
@@ -242,7 +243,8 @@ public final class ClientSelfTest {
             check(Journal.get().milestone >= 2, "rang de matelot (" + Journal.get().milestone + ")");
             check(has(Factor.SEA_LEGS), "le pied marin protège");
         });
-        step("pied-marin-capture", 6, () -> shot("10_sea_legs"));
+        step("pied-marin-regard", 1, () -> aim(60f, -100f, 4f));
+        step("pied-marin-capture", 5, () -> shot("10_sea_legs"));
 
         // confort : sans mouvement de caméra
         step("confort", 1, () -> {

@@ -69,7 +69,7 @@ for y in range(256):
     for x in range(256):
         dx, dy = (x - 127.5) / 127.5, (y - 127.5) / 127.5
         r = math.hypot(dx * 1.05, dy)
-        a = max(0.0, min(1.0, (r - 0.5) / 0.85)) ** 1.5
+        a = max(0.0, min(1.0, (r - 0.32) / 0.8)) ** 1.35
         vp[x, y] = (255, 255, 255, int(a * 255))
 vig.save(os.path.join(GUI, 'vignette.png'))
 

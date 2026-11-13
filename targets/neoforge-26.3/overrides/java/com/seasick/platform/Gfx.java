@@ -4,6 +4,7 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
+import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.resources.Identifier;
 
 /**
@@ -28,6 +29,10 @@ public final class Gfx {
     }
 
     public static void text(GuiGraphicsExtractor g, Font font, Component s, int x, int y, int argb, boolean shadow) {
+        g.text(font, s, x, y, (argb & 0xFC000000) == 0 ? argb | 0xFF000000 : argb, shadow);
+    }
+
+    public static void text(GuiGraphicsExtractor g, Font font, FormattedCharSequence s, int x, int y, int argb, boolean shadow) {
         g.text(font, s, x, y, (argb & 0xFC000000) == 0 ? argb | 0xFF000000 : argb, shadow);
     }
 

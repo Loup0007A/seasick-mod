@@ -231,7 +231,7 @@ public final class SeaClient {
         Minecraft mc = Minecraft.getInstance();
         if (event.getEntity() != mc.player || !SeaConfig.enabled()) return;
         try {
-            Sickness.onEat(Compat.itemPath(event.getItem()));
+            Sickness.onEat(Compat.itemPath(event.getItem()), Compat.itemId(event.getItem()));
         } catch (Throwable t) {
             fail("repas", t);
         }

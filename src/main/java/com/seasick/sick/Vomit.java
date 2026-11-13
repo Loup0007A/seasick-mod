@@ -140,9 +140,8 @@ public final class Vomit {
         if (t % 2 == 0) {
             level.addParticle(meal.isEmpty() || meal.contains("kelp") ? ParticleTypes.ITEM_SLIME : ParticleTypes.FALLING_HONEY,
                 mouth.x, mouth.y, mouth.z, look.x * 0.15, -0.05, look.z * 0.15);
-            if (!meal.isEmpty()) {
-                level.addParticle(Compat.itemParticle(meal), mouth.x, mouth.y, mouth.z, look.x * 0.18, -0.02, look.z * 0.18);
-            }
+            var crumbs = meal.isEmpty() ? null : Compat.itemParticle(Stomach.mealId());
+            if (crumbs != null) level.addParticle(crumbs, mouth.x, mouth.y, mouth.z, look.x * 0.18, -0.02, look.z * 0.18);
         }
         if (meal.equals("glow_berries") && t % 3 == 0) {
             level.addParticle(ParticleTypes.GLOW, mouth.x, mouth.y, mouth.z, look.x * 0.1, -0.02, look.z * 0.1);

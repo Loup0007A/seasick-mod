@@ -5,6 +5,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
+import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.resources.ResourceLocation;
 
 /**
@@ -35,6 +36,10 @@ public final class Gfx {
     }
 
     public static void text(GuiGraphics g, Font font, Component s, int x, int y, int argb, boolean shadow) {
+        g.drawString(font, s, x, y, argb, shadow);
+    }
+
+    public static void text(GuiGraphics g, Font font, FormattedCharSequence s, int x, int y, int argb, boolean shadow) {
         g.drawString(font, s, x, y, argb, shadow);
     }
 
