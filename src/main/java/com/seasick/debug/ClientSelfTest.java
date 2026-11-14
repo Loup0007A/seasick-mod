@@ -180,12 +180,18 @@ public final class ClientSelfTest {
         // carnet de bord
         step("carnet", 1, () -> {
             Sickness.dose = Sickness.shown = 0.55;
+            LogbookScreen.showPage(0);
             SeaClient.openLogbook();
         });
         step("carnet-capture", 25, () -> {
             check(mc().screen instanceof LogbookScreen, "carnet de bord ouvert");
             check(has(Factor.READING), "lire en mer compte comme de la lecture");
             shot("06_logbook");
+            LogbookScreen.showPage(1);
+        });
+        step("carnet-page-2", 6, () -> {
+            shot("06b_logbook_sea_legs");
+            LogbookScreen.showPage(0);
             mc().setScreen(null);
         });
 

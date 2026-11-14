@@ -68,7 +68,7 @@ public final class Vomit {
             t = 0;
             Component lean = SeaState.context == Context.BOAT ? Component.translatable("seasick.vomit.lean")
                 : Component.translatable("seasick.vomit.coming");
-            Messages.say(lean);
+            Messages.say(Messages.tint(lean, 0xFFB060, false));
         }
     }
 
@@ -176,14 +176,14 @@ public final class Vomit {
             Sickness.dose = Math.min(Sickness.dose, 0.72);
             Sickness.reliefTicks = 10 * 20;
             j.dryHeaves++;
-            Messages.say(Component.translatable("seasick.vomit.dry"));
+            Messages.say(Messages.tint(Component.translatable("seasick.vomit.dry"), 0xC6E08C, true));
         } else {
             Sickness.dose = Math.min(Sickness.dose, clean ? 0.38 : 0.55);
             Sickness.reliefTicks = (clean ? 25 : 15) * 20;
             j.timesSick++;
             if (clean && SeaState.context == Context.BOAT) j.overTheRail++;
             Stomach.emptied();
-            Messages.say(Component.translatable(clean ? "seasick.vomit.clean" : "seasick.vomit.messy"));
+            Messages.say(Messages.tint(Component.translatable(clean ? "seasick.vomit.clean" : "seasick.vomit.messy"), clean ? 0x9AE0A0 : 0xD8C070, true));
             Sounds.relief();
         }
         Sickness.markSick();

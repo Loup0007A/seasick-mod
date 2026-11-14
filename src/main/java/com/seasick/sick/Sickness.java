@@ -235,10 +235,10 @@ public final class Sickness {
         while (s < 4 && q >= UP[s]) s++;
         while (s > 0 && q < UP[s - 1] - 5) s--;
         if (s > stage) {
-            if (s < 4) Messages.say(Component.translatable("seasick.stage.up." + s).append(" ").append(Messages.tip()));
-            else Messages.say(Component.translatable("seasick.stage.up.4"));
+            if (s < 4) Messages.say(Messages.symptom(Component.translatable("seasick.stage.up." + s), Messages.tip()));
+            else Messages.say(Messages.tint(Component.translatable("seasick.stage.up.4"), 0xFF9A5A, true));
         } else if (s == 0 && stage >= 2) {
-            Messages.say(Component.translatable("seasick.better"));
+            Messages.say(Messages.tint(Component.translatable("seasick.better"), 0x9AE0A0, true));
         }
         stage = s;
     }

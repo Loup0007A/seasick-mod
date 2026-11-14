@@ -3,6 +3,8 @@ package com.seasick.client;
 import com.seasick.config.SeaConfig;
 import com.seasick.platform.Compat;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.TextColor;
 
 /** Messages au-dessus de la barre d'action, sans en noyer le joueur. */
 public final class Messages {
@@ -27,6 +29,18 @@ public final class Messages {
     public static void maybe(Component c) {
         if (cooldown > 0) return;
         say(c);
+    }
+
+    /** Texte coloré (0xRRGGBB), éventuellement en italique. */
+    public static MutableComponent tint(Component c, int rgb, boolean italic) {
+        return c.copy().withStyle(st -> st.withColor(TextColor.fromRgb(rgb)).withItalic(italic));
+    }
+
+    /** Un symptôme (vert pâle, italique) suivi d'un conseil (gris clair). */
+    public static Component symptom(Component s, Component tip) {
+        MutableComponent m = tint(s, 0xC6E08C, true);
+        if (tip != null) m.append(Component.literal("  ")).append(tint(tip, 0xD8D8D0, false));
+        return m;
     }
 
     /** Un conseil différent à chaque fois. */

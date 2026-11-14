@@ -104,10 +104,10 @@ for i in range(8):
     t(f'seasick.compass.{i}', compass_en[i], compass_fr[i])
 
 t('seasick.logbook.title', "Ship's log", 'Journal de bord')
-t('seasick.logbook.sea', 'THE SEA', 'LA MER')
-t('seasick.logbook.you', 'YOU', 'VOUS')
-t('seasick.logbook.why', "WHAT'S AFFECTING YOU", 'CE QUI JOUE')
-t('seasick.logbook.log', 'MEMORIES', 'SOUVENIRS')
+t('seasick.logbook.sea', 'The sea', 'La mer')
+t('seasick.logbook.you', 'How you feel', 'Comment vous allez')
+t('seasick.logbook.why', "What's affecting you", 'Ce qui joue')
+t('seasick.logbook.log', 'Memories at sea', 'Souvenirs de mer')
 t('seasick.logbook.period', 'Waves every %s s · %s', 'Vagues toutes les %s s · %s')
 t('seasick.logbook.wind', 'Wind force %s (%s) from %s', 'Vent force %s (%s) de %s')
 t('seasick.logbook.water', '%s blocks of open water upwind · depth %s', "%s blocs d'eau libre au vent · fond %s")
@@ -123,6 +123,20 @@ t('seasick.logbook.legs', 'Sea legs: %s%%', 'Pied marin : %s %%')
 t('seasick.logbook.time', '%sh%s at sea · %s blocks · %s voyages', '%sh%s en mer · %s blocs · %s traversées')
 t('seasick.logbook.sick', 'Sick %s times (%s over the rail) · %s dry heaves', 'Malade %s fois (%s par-dessus bord) · %s à sec')
 t('seasick.logbook.calm', 'Longest voyage without being sick: %s:%s', 'Plus longue traversée sans être malade : %s:%s')
+
+t('seasick.logbook.legs_title', 'Sea legs', 'Pied marin')
+t('seasick.logbook.doctor', "The ship's doctor says", 'Le médecin de bord conseille')
+guide = [
+    ('Keep your eyes on the horizon: your ears and eyes agree again.', "Gardez les yeux sur l'horizon : oreilles et yeux se remettent d'accord."),
+    ('Take the helm. Whoever steers anticipates the motion.', 'Prenez la barre. Celui qui pilote anticipe les mouvements.'),
+    ('Too much? Close your eyes for a moment (hold %s).', 'Trop, c\'est trop ? Fermez les yeux un moment (%s enfoncé).'),
+    ('Eat something plain: bread, cookies, dried kelp. Honey settles the stomach.', "Mangez du sec : pain, biscuits, algues séchées. Le miel apaise l'estomac."),
+    ('No reading at sea: no inventory, no maps, no books, no spyglass.', 'Pas de lecture en mer : ni inventaire, ni carte, ni livre, ni longue-vue.'),
+    ('Avoid heavy, raw or spoiled food, and milk. Never sail on an empty stomach.', "Évitez le lourd, le cru, le gâté et le lait. Ne partez jamais l'estomac vide."),
+    ('When it comes: turn to the side and lean over the rail!', 'Quand ça vient : tournez-vous vers le côté et penchez-vous par-dessus bord !'),
+]
+for i, (en, fr) in enumerate(guide, 1):
+    t(f'seasick.guide.{i}', en, fr)
 
 t('seasick.forecast.sick', 'If nothing changes: sick in %s:%s', 'Si rien ne change : malade dans %s:%s')
 t('seasick.forecast.later', 'If nothing changes: you will be sick', 'Si rien ne change : vous serez malade')

@@ -136,6 +136,7 @@ public final class SeaClient {
             Sickness.tick(p);
             Vomit.tick(p);
             Hud.tick();
+            Hud.needleTick();
         } catch (Throwable t) {
             fail("tick", t);
         }

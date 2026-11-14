@@ -85,4 +85,9 @@ public final class Compat {
     public static void chat(Component message) {
         if (mc().player != null) mc().player.sendSystemMessage(message);
     }
+
+    /** Bouton de souris (règle de réécriture de mouseClicked). */
+    public static int legacyButton(int button) {
+        return button;
+    }
 }

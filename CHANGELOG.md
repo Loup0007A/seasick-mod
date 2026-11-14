@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.1.0
+
+- **All-new look**, inspired by the best-loved HUD mods (Cold Sweat, Tough As Nails) and Patchouli books. Every texture is now hand-tuned illustration drawn at 2–4× the interface density with smooth filtering, crisp at any GUI scale.
+- **Ship's instrument** next to the hotbar: a varnished wood and brass plate with a **clinometer** whose needle follows the boat's real roll, a sea-state lamp, the sailor's face and a gradient gauge.
+- **Six illustrated faces** (Fine → About to be sick, plus eyes closed).
+- **Screen effects**: a drifting yellow-green haze when your colour turns, dark edges breathing with the swell, **cold-sweat droplets**, and soft, curved **eyelids** for yawns and closed eyes.
+- **Artificial horizon** redrawn as a glowing line with a pitch ladder and an amber boat symbol.
+- **Ship's log is now a book**: parchment pages, leather cover, red ribbon. Page 1 shows a little **animated painted scene** — swell to scale, your boat rolling, a wind arrow relative to where you look. Page 2: how you feel, forecast and what's affecting you. Turn the page (arrows, ← →) for your **sea legs ranks and memories** and the **ship's doctor's advice**.
+- Coloured messages, page-turn sound, new illustrated logo.
+- Nouveaux graphismes : instrument de bord en laiton avec clinomètre, visages illustrés, brume, sueurs froides, paupières, horizon lumineux et journal de bord en livre de parchemin avec scène animée.
+
 ## 1.0.0
 
 - **First release.** Real motion sickness at sea, 100% client-side, for **Forge 1.21–1.21.1**, **NeoForge 1.21–1.21.1**, **Forge 1.20.1** and **NeoForge 26.3** (OpenGL and Vulkan).

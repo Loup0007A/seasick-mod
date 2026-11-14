@@ -25,9 +25,21 @@ public final class Gfx {
         g.fillGradient(x0, y0, x1, y1, top, bottom);
     }
 
+    private static final java.util.Map<ResourceLocation, Object> SMOOTHED = new java.util.HashMap<>();
+
+    /** Filtrage linéaire : les textures du mod sont dessinées à 2-4 fois la densité de l'interface. */
+    private static void smooth(ResourceLocation tex) {
+        var t = net.minecraft.client.Minecraft.getInstance().getTextureManager().getTexture(tex);
+        if (SMOOTHED.get(tex) != t) {
+            t.setFilter(true, false);
+            SMOOTHED.put(tex, t);
+        }
+    }
+
     /** Région (u, v, rw, rh) d'une texture de taille (tw, th) étirée sur le rectangle (x, y, w, h), teintée. */
     public static void texture(GuiGraphics g, ResourceLocation tex, int x, int y, int w, int h,
                                float u, float v, int rw, int rh, int tw, int th, int argb) {
+        smooth(tex);
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
         g.setColor(((argb >> 16) & 255) / 255f, ((argb >> 8) & 255) / 255f, (argb & 255) / 255f, ((argb >>> 24) & 255) / 255f);
