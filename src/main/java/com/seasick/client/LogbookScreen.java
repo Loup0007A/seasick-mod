@@ -243,8 +243,8 @@ public class LogbookScreen extends Screen {
         int mid = y + h * 3 / 5;
         if (water || ctx == Context.LAND && LandSway.active()) {
             // houle à l'échelle : amplitude selon la hauteur, longueur selon la période
-            double amp = Mth.clamp(SeaState.hs * 2.4, 0.4, h * 0.3);
-            double lambda = Mth.clamp(1.56 * SeaState.tp * SeaState.tp * 0.9, 10, 140);
+            double amp = Mth.clamp(SeaState.hs * 1.6, 0.4, h * 0.26);
+            double lambda = Mth.clamp(1.56 * SeaState.tp * SeaState.tp * 0.45, 10, 64);
             double phase = t * 2 * Math.PI / Math.max(SeaState.tp, 1.2);
             for (int i = 0; i < w; i++) {
                 double yy = mid - amp * Math.sin(2 * Math.PI * i / lambda - phase) - amp * 0.3 * Math.sin(4 * Math.PI * i / lambda - phase * 1.3);
@@ -370,8 +370,9 @@ public class LogbookScreen extends Screen {
         for (int i = 1; i <= 7; i++) {
             Component key = i == 3 ? Component.translatable("seasick.guide.3", ClientBoot.KEY_EYES.getTranslatedKeyMessage())
                 : Component.translatable("seasick.guide." + i);
+            if (y > 172) break;
             y = wrap(g, Component.literal("• ").append(key), RX, y, i == 7 ? BAD : INK, PW);
-            y += 2;
+            y += 3;
         }
     }
 }

@@ -127,13 +127,13 @@ t('seasick.logbook.calm', 'Longest voyage without being sick: %s:%s', 'Plus long
 t('seasick.logbook.legs_title', 'Sea legs', 'Pied marin')
 t('seasick.logbook.doctor', "The ship's doctor says", 'Le médecin de bord conseille')
 guide = [
-    ('Keep your eyes on the horizon: your ears and eyes agree again.', "Gardez les yeux sur l'horizon : oreilles et yeux se remettent d'accord."),
-    ('Take the helm. Whoever steers anticipates the motion.', 'Prenez la barre. Celui qui pilote anticipe les mouvements.'),
-    ('Too much? Close your eyes for a moment (hold %s).', 'Trop, c\'est trop ? Fermez les yeux un moment (%s enfoncé).'),
-    ('Eat something plain: bread, cookies, dried kelp. Honey settles the stomach.', "Mangez du sec : pain, biscuits, algues séchées. Le miel apaise l'estomac."),
-    ('No reading at sea: no inventory, no maps, no books, no spyglass.', 'Pas de lecture en mer : ni inventaire, ni carte, ni livre, ni longue-vue.'),
-    ('Avoid heavy, raw or spoiled food, and milk. Never sail on an empty stomach.', "Évitez le lourd, le cru, le gâté et le lait. Ne partez jamais l'estomac vide."),
-    ('When it comes: turn to the side and lean over the rail!', 'Quand ça vient : tournez-vous vers le côté et penchez-vous par-dessus bord !'),
+    ('Eyes on the horizon: ears and eyes agree.', "L'horizon : oreilles et yeux d'accord."),
+    ('Take the helm: steering, you anticipate.', 'À la barre, on anticipe la houle.'),
+    ('Too much? Close your eyes (hold %s).', 'Trop ? Fermez les yeux (%s).'),
+    ('Eat plain: bread, dried kelp. Or honey.', 'Du sec : pain, algues séchées. Ou du miel.'),
+    ('No reading: inventory, maps, spyglass.', 'Pas de lecture : inventaire, carte, longue-vue.'),
+    ('No heavy, raw or spoiled food, no milk.', 'Ni lourd, ni cru, ni gâté, ni lait.'),
+    ('When it comes: lean over the rail!', 'Quand ça vient : par-dessus bord !'),
 ]
 for i, (en, fr) in enumerate(guide, 1):
     t(f'seasick.guide.{i}', en, fr)

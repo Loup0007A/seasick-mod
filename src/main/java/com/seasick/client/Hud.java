@@ -172,7 +172,9 @@ public final class Hud {
         int len = (int) (w * 0.92);
         int dy = (int) Math.round(-f * Math.tan(Math.toRadians(Mth.clamp(look, -80, 80))));
         if (Math.abs(dy) < h) {
-            Gfx.texture(g, HORIZON, -len / 2, dy - 3, len, 6, 0, 0, 512, 24, 512, 24, 0xC8D4F2FF);
+            // trait sombre dessous pour le contraste sur un ciel clair, puis le trait lumineux
+            Gfx.texture(g, HORIZON, -len / 2, dy - 5, len, 10, 0, 0, 512, 24, 512, 24, 0x90001828);
+            Gfx.texture(g, HORIZON, -len / 2, dy - 3, len, 6, 0, 0, 512, 24, 512, 24, 0xF0D4F2FF);
         }
         // échelle de tangage, tous les 5°
         for (int k = -2; k <= 2; k++) {
@@ -180,7 +182,8 @@ public final class Hud {
             int yy = (int) Math.round(-f * Math.tan(Math.toRadians(Mth.clamp(look - 5 * k, -80, 80))));
             if (Math.abs(yy) > h / 2) continue;
             int lw = Math.abs(k) == 1 ? 36 : 56;
-            Gfx.texture(g, HORIZON, -lw / 2, yy - 2, lw, 4, 0, 0, 512, 24, 512, 24, 0x70D4F2FF);
+            Gfx.texture(g, HORIZON, -lw / 2, yy - 3, lw, 6, 0, 0, 512, 24, 512, 24, 0x60001828);
+            Gfx.texture(g, HORIZON, -lw / 2, yy - 2, lw, 4, 0, 0, 512, 24, 512, 24, 0x90D4F2FF);
         }
         Gfx.pop(g);
         // la maquette du bateau, fixe : là où pointe l'étrave

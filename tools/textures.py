@@ -572,7 +572,7 @@ def book():
     wd.ellipse((rx - rr * 0.75, ry - rr * 0.75, rx + rr * 0.75, ry + rr * 0.75), outline=(90, 60, 30, 26), width=int(0.6 * k))
     img.alpha_composite(wm)
     # signet rouge
-    sx = W * 0.86
+    sx = W * 0.962
     rib = [(sx - 3.5 * k, 2 * k), (sx + 3.5 * k, 2 * k), (sx + 3.5 * k, 34 * k), (sx, 30 * k), (sx - 3.5 * k, 34 * k)]
     rs = Image.new('L', size, 0)
     ImageDraw.Draw(rs).polygon([(p[0] + 0.8 * k, p[1] + 0.8 * k) for p in rib], fill=255)
