@@ -8,6 +8,8 @@ La mer est **simulée** à partir du vent, de la météo, de l'eau libre au vent
 
 **Mod 100 % client** : il fonctionne en solo et sur n'importe quel serveur, même vanilla. Rien ne change pour les autres joueurs.
 
+À côté de la barre d'action, un **instrument de bord** en bois verni et laiton : un **clinomètre** dont l'aiguille suit le roulis réel du bateau, un voyant pour l'état de la mer, le visage du marin et la jauge de malaise.
+
 ![Mer agitée](curseforge/screenshots/02_moderate_roll.png)
 
 ## 📦 Installation
@@ -52,8 +54,8 @@ Le mal des transports vient d'un **conflit entre l'oreille interne et les yeux**
 |---|---|
 | 😊 En forme | Rien. |
 | 😐 Barbouillé | On bâille, les paupières tombent (somnolence du mal des transports). |
-| 🤢 Nauséeux | Teint pâle, on salive, sueurs froides. |
-| 🤮 Malade | Sueurs froides sur les bords de l'écran, l'estomac gargouille, les mains tremblent, les rames glissent. |
+| 🤢 Nauséeux | Une brume jaune-vert dérive devant les yeux, on salive. |
+| 🤮 Malade | Les bords de l'écran s'assombrissent au rythme de la houle, des gouttes de sueur froide perlent, l'estomac gargouille, les mains tremblent, les rames glissent. |
 | 😵 Au bord du malaise | … |
 
 ![Nauséeux](curseforge/screenshots/04_queasy.png)
@@ -72,9 +74,13 @@ Deux haut-le-cœur vous préviennent : c'est le moment de **vous pencher par-des
 
 ## 📓 Le journal de bord (`O`)
 
-L'état de la mer (Douglas, hauteur, période, allure), le vent (Beaufort, direction), l'eau libre et le fond ; votre malaise et **tout ce qui joue en ce moment, avec son effet** ; une **prévision** (« si rien ne change : malade dans 1:20 ») ; vos souvenirs (temps en mer, distance, traversées, malaises, plus longue traversée sans être malade). Attention : le lire en mer compte comme de la lecture.
+Un livre de parchemin à deux doubles pages (flèches ou ← → pour tourner les pages). La première montre une **petite scène animée** — la houle à l'échelle, votre bateau qui roule, le vent par rapport à votre regard —, l'état de la mer (Douglas, hauteur, période, allure), le vent (Beaufort, direction), l'eau libre et le fond ; votre malaise et **tout ce qui joue en ce moment, avec son effet** ; une **prévision** (« si rien ne change : malade dans 1:20 ») ; vos souvenirs (temps en mer, distance, traversées, malaises, plus longue traversée sans être malade). Attention : le lire en mer compte comme de la lecture.
 
 ![Journal de bord](curseforge/screenshots/06_logbook.png)
+
+La seconde : votre **pied marin** (de Terrien à Loup de mer), vos souvenirs, et les conseils du **médecin de bord**.
+
+![Pied marin et médecin de bord](curseforge/screenshots/06b_logbook_sea_legs.png)
 
 ## ⚙ Réglages et confort
 

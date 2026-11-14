@@ -20,6 +20,8 @@ Look at the horizon. Take the helm. Eat something plain. Or lean over the side.
 
 **100% client-side**: works in singleplayer and on any server, even vanilla ones. Nothing changes for other players.
 
+Next to your hotbar sits a **ship's instrument** of varnished wood and brass: a **clinometer** whose needle follows your boat's real roll, a sea-state lamp, your sailor's face and a sickness gauge.
+
 ### 🌬 A sea worth sailing
 - **Wind** follows the weather — a shifting breeze when clear, fresh wind in the rain, a gale in thunderstorms — and slowly turns.
 - **Waves** grow with the wind (Pierson–Moskowitz), but only over enough **open water upwind**: a lake stays flat, the open ocean builds up. They **break over shallows**, die down in rivers, swamps and under **sea ice**, and vanish **under a roof**.
@@ -36,7 +38,7 @@ Motion sickness comes from a conflict between your **inner ear** and your **eyes
 **What hurts:** **reading** at sea — inventory, chests, chat, signs (+50%), a **book** (+90%), a **map** (+60%) · the **spyglass** (+120%) · staring at your **feet** (+35%) · being a **passenger** (+25%) · **heavy**, **raw** or **spoiled** food, **milk** · an **empty stomach** · **darkness** with no horizon · **Nausea**.
 
 ### Five stages
-😊 **Fine** → 😐 **Uneasy** (yawns, heavy eyelids) → 🤢 **Queasy** (pale, mouth watering, cold sweat) → 🤮 **Sick** (dark edges, churning stomach, trembling hands, slipping oars) → 😵 **About to be sick**.
+😊 **Fine** → 😐 **Uneasy** (yawns, heavy eyelids) → 🤢 **Queasy** (a yellow-green haze drifts across your eyes, mouth watering) → 🤮 **Sick** (edges darkening with the swell, cold-sweat droplets, churning stomach, trembling hands, slipping oars) → 😵 **About to be sick**.
 
 ![Queasy](https://raw.githubusercontent.com/Loup0007A/seasick-mod/main/curseforge/screenshots/04_queasy.png)
 
@@ -51,9 +53,13 @@ Two heaves warn you: **lean over the side** (turn sideways and look down). Over 
 - **Camels**, the ships of the desert, rock you too.
 
 ### 📓 Ship's log (`O`)
-Sea state, waves, wind and open water; how you feel and **everything affecting you right now, with its exact effect**; a **forecast** ("if nothing changes: sick in 1:20"); and your memories at sea. Careful: reading it at sea counts as reading.
+A parchment book with a little **animated painted scene** of the swell, your boat and the wind. Sea state, waves, wind and open water; how you feel and **everything affecting you right now, with its exact effect**; a **forecast** ("if nothing changes: sick in 1:20"); and your memories at sea. Careful: reading it at sea counts as reading.
 
 ![Ship's log](https://raw.githubusercontent.com/Loup0007A/seasick-mod/main/curseforge/screenshots/06_logbook.png)
+
+Turn the page for your **sea legs ranks**, your memories at sea and the **ship's doctor's advice**.
+
+![Sea legs](https://raw.githubusercontent.com/Loup0007A/seasick-mod/main/curseforge/screenshots/06b_logbook_sea_legs.png)
 
 ### ⚙ Comfort & configuration
 This mod moves the picture **on purpose**. If you get motion sick in real life, turn on `reduceMotion` (still camera — the sea is shown by the artificial horizon and the gauge) or lower `motionScale`.
