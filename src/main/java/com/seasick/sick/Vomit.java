@@ -134,18 +134,19 @@ public final class Vomit {
         Vec3 mouth = eye.add(flat.scale(0.55)).add(0, -0.42, 0);
         int color = Stomach.mealColor();
         String meal = Stomach.meal();
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 2; i++) {
             double vx = flat.x * 0.16 + (RNG.nextDouble() - 0.5) * 0.05;
             double vy = -0.08 + (RNG.nextDouble() - 0.5) * 0.04;
             double vz = flat.z * 0.16 + (RNG.nextDouble() - 0.5) * 0.05;
-            level.addParticle(Compat.dust(jitter(color), 0.8f + RNG.nextFloat() * 0.5f), mouth.x, mouth.y, mouth.z, vx, vy, vz);
+            level.addParticle(Compat.dust(jitter(color), 0.55f + RNG.nextFloat() * 0.4f), mouth.x, mouth.y, mouth.z, vx, vy, vz);
         }
         // ce qui tombe vraiment : gouttes et morceaux, soumis à la gravité
         level.addParticle(ParticleTypes.FALLING_HONEY, mouth.x + (RNG.nextDouble() - 0.5) * 0.15, mouth.y,
             mouth.z + (RNG.nextDouble() - 0.5) * 0.15, flat.x * 0.12, -0.05, flat.z * 0.12);
         if (t % 2 == 0) {
-            level.addParticle(meal.isEmpty() || meal.contains("kelp") ? ParticleTypes.ITEM_SLIME : ParticleTypes.FALLING_HONEY,
-                mouth.x, mouth.y, mouth.z, flat.x * 0.15, -0.05, flat.z * 0.15);
+            // une seconde goutte, décalée : un filet plutôt qu'un amas
+            level.addParticle(ParticleTypes.FALLING_HONEY, mouth.x + flat.x * 0.2, mouth.y - 0.05, mouth.z + flat.z * 0.2,
+                flat.x * 0.15, -0.05, flat.z * 0.15);
             var crumbs = meal.isEmpty() ? null : Compat.itemParticle(Stomach.mealId());
             if (crumbs != null) level.addParticle(crumbs, mouth.x, mouth.y, mouth.z, flat.x * 0.18, -0.02, flat.z * 0.18);
         }
